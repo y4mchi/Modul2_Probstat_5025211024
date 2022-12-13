@@ -9,7 +9,7 @@ Seorang peneliti melakukan penelitian mengenai pengaruh aktivitas 𝐴 terhadap 
 
 Berdasarkan data pada tabel diatas, diketahui kadar saturasi oksigen  dari responden ke-3 ketika belum melakukan aktivitas 𝐴 sebanyak 67, dan setelah melakukan aktivitas 𝐴 sebanyak 70.
 
-A. Carilah Standar Deviasi dari data selisih pasangan pengamatan tabel diatas
+# A. Carilah Standar Deviasi dari data selisih pasangan pengamatan tabel diatas
 
 **Masukan data sesuai pengelompokannya **
 
