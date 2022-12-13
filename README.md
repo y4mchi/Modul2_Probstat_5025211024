@@ -146,8 +146,7 @@ qchisq(p = 0.05, df = 2, lower.tail = FALSE)
 # e. Keputusan
 
 **Keputusan dapat diperoleh dengan menggunakan fungsi t.test. Karena nilai t test < t kritikal, maka tidak ada bukti yg cukup untuk menolak H0. 
-H0 Diterima
-**
+H0 Diterima**
 
 # f. Kesimpulan
 
