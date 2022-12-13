@@ -189,6 +189,162 @@ qqnorm(Group1$Length)
 
 qqline(Group1$Length)
 
+![image](https://user-images.githubusercontent.com/100952724/207315321-e302e000-fe1a-461a-9127-6147aead57bb.png)
+
+**Plot Quantil Normal Kucing Hitam**
+
+qqnorm(Group2$Length)
+
+qqline(Group2$Length)
+
+![image](https://user-images.githubusercontent.com/100952724/207315384-31e2ce82-6355-417d-a784-f12a1749b3f9.png)
+
+**Plot Quantil Normal Kucing Putih**
+
+qqnorm(Group3$Length
+
+qqline(Group3$Length)
+
+![image](https://user-images.githubusercontent.com/100952724/207315441-6a8daa73-c853-4d19-ba69-8ac87af0cc45.png)
+
+# b.	carilah atau periksalah Homogeneity of variances nya , Berapa nilai p yang didapatkan? , Apa hipotesis dan kesimpulan yang dapat diambil ?
+
+bartlett.test(Length~Group, data=meow)
+
+![image](https://user-images.githubusercontent.com/100952724/207315521-513f49be-a854-4064-815e-eaa5e1dd1a56.png)
+
+p-value sebesar 0.8054 yang lebih dari nilai 𝛼 = 0.05 sehingga asumsi kesamaan varians terpenuhi.
+
+# c.	Untuk uji ANOVA, buatlah model linier dengan Panjang versus Grup dan beri nama model tersebut model 1.
+
+model1 = lm(Length ~ Group, data = meow)
+
+anova(model1)
+
+![image](https://user-images.githubusercontent.com/100952724/207315642-6465db74-8bb3-4def-ba38-4bdebf47c6ec.png)
+
+# d.	Dari Hasil Poin C , Berapakah nilai-p ? ,  Apa yang dapat Anda simpulkan dari H0?
+
+pada taraf uji 5% didapatkan nilai p-value sebesar 0.0013. Maka, terdapat perbedaan panjang kucing yang signifikan berdasarkan grupnya.
+
+# e.	Verifikasilah jawaban model 1 dengan Post-hooc test TukeyHSD ,  dari nilai p yang didapatkan apakah satu jenis kucing lebih panjang dari yang lain? Jelaskan.
+
+TukeyHSD(aov(model1))
+
+![image](https://user-images.githubusercontent.com/100952724/207315752-f794e8ba-b4c3-4734-91d4-1f0c57db4f70.png)
+
+Jika menggunakan 𝛼 = 5%, perbedaan panjang kucing yang signifikan adalah grup 2 (Kucing Hitam) terhadap grup 1 (Kucing Oren) dan grup 3 (Kucing Putih).
+
+#F.	Visualisasikan data dengan ggplot2
+
+Install.package(“ggplot2”)
+
+library(“ggplot2”)
+
+ggplot(meow, aes(x = Group, y = Length)) + geom_boxplot(fill = "grey80", colour = "black") + scale_x_discrete() + xlab("Treatment Group") + ylab("Length (cm)")
+
+![image](https://user-images.githubusercontent.com/100952724/207315924-09627072-10ee-41a8-95d6-ea5f56fe4ca0.png)
+
+# Soal 5
+Data yang digunakan merupakan hasil eksperimen yang dilakukan untuk mengetahui pengaruh suhu operasi (100˚C, 125˚C dan 150˚C) dan tiga jenis kaca pelat muka (A, B dan C) pada keluaran cahaya tabung osiloskop. Percobaan dilakukan sebanyak 27 kali dan didapat data sebagai berikut: Data Hasil Eksperimen. Dengan data tersebut: 
+
+# a. Buatlah plot sederhana untuk visualisasi data
+
+Install Packages dan Function
+install.packages("multcompView")
+install.packages("readr")
+library(readr)
+library(ggplot2)
+library(multcompView)
+library(dplyr)
+
+**Membaca file**
+
+ GTL <- read_csv("GTL.csv")
+
+head(GTL)
+
+![image](https://user-images.githubusercontent.com/100952724/207316194-d3ad6a09-18ee-4504-81a0-f66aca4ed6e0.png)
+
+**Melakukan observasi data**
+
+str(GTL)
+
+![image](https://user-images.githubusercontent.com/100952724/207316278-aefc597c-b0f4-417c-8f69-e7c5b56e1525.png)
+
+**Memvisualisai**
+qplot(x = Temp, y = Light, geom = "point", data = GTL) 
+     facet_grid(.~Glass, labeller = label_both)
+     
+ ![image](https://user-images.githubusercontent.com/100952724/207316370-c2283d7a-ab9f-4a63-8dd9-e35a8369f662.png
+
+# b. Lakukan uji ANOVA dua arah untuk 2 faktor
+
+GTL$Glass <- as.factor(GTL$Glass)
+
+GTL$Temp_Factor <- as.factor(GTL$Temp)
+
+str(GTL)
+
+![image](https://user-images.githubusercontent.com/100952724/207316524-4896d112-625e-4a56-ab5d-b1da7d155b50.png)
+
+**Melakukan AOV**
+
+anova <- aov(Light ~ Glass*Temp_Factor, data = GTL)
+
+summary(anova)
+
+![image](https://user-images.githubusercontent.com/100952724/207316596-1b7ce6d0-7ec9-4857-9fe0-e58baad3063e.png)
+
+# c.	Tampilkan tabel dengan mean dan standar deviasi keluaran cahaya untuk setiap perlakuan (kombinasi kaca pelat muka dan suhu operasi)
+
+data_summary <- group_by(GTL, Glass, Temp) %>%
+    summarise(mean=mean(Light), sd=sd(Light)) %>%
+     arrange(desc(mean))
+print(data_summary)
+
+![image](https://user-images.githubusercontent.com/100952724/207316704-dd41d5fd-bb3c-4f43-9a32-c8458e497b96.png)
+
+# d.	Lakukan Uji Tukey 
+
+ tukey <- TukeyHSD(anova)
+ 
+ print(tukey)
+ 
+ ![image](https://user-images.githubusercontent.com/100952724/207316787-580eb156-9c3a-4d50-a161-fdd4f778a931.png)
+
+
+![image](https://user-images.githubusercontent.com/100952724/207316802-0f022748-ec97-4d36-9103-52ff2dddbf03.png)
+
+
+# e.	Gunakan compact letter display untuk menunjukkan perbedaan signifikan antara uji Anova dan uji Tukey
+
+ tukey.cld <- multcompLetters4(anova, tukey)
+ 
+ print(tukey.cld)
+ 
+ ![image](https://user-images.githubusercontent.com/100952724/207316880-75573e08-4176-4326-952a-06b71c1e979c.png)
+
+
+
+
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
