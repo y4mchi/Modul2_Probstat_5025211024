@@ -12,22 +12,26 @@ Berdasarkan data pada tabel diatas, diketahui kadar saturasi oksigen  dari respo
 A. Carilah Standar Deviasi dari data selisih pasangan pengamatan tabel diatas
 
 **Masukan data sesuai pengelompokannya **
+
 x<- c(78, 75, 67, 77, 70, 72, 78, 74, 77)
 y<- c(100, 95, 70, 90, 90, 90, 89, 90, 100)
 
 **Lakukan pengecekan data **
+
 dt <- data.frame(x,y)
 dt
 
 ![image](https://user-images.githubusercontent.com/100952724/207309012-1a9a992e-ebe1-422c-9d5b-8d23417345ee.png)
 
 **Mencari Selisih **
+
  diff <- y-x
  diff
  
  ![image](https://user-images.githubusercontent.com/100952724/207309089-915397b2-dbac-4082-b782-5e16ea5f60f8.png)
 
 **Mencari Standar Deviasi**
+
 mean (diff)
 sd (diff)
  
